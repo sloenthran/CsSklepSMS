@@ -1,13 +1,12 @@
 package pl.nogacz.shop;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ShopApplicationTests {
-
+public class ShopApplicationTests {
     @Test
-    void contextLoads() {
+    public void applicationStarts() {
+        ShopApplication.main(new String[] {});
     }
-
 }
