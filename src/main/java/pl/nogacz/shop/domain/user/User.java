@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
+import pl.nogacz.shop.domain.server.Server;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -65,4 +66,13 @@ public class User implements UserDetails {
     )
     @Builder.Default
     private List<UserRole> authorities = new ArrayList<>();
+
+    @OneToMany(
+            targetEntity = Server.class,
+            cascade = CascadeType.ALL,
+            mappedBy = "user",
+            fetch = FetchType.LAZY
+    )
+    @Builder.Default
+    private List<Server> servers = new ArrayList<>();
 }
