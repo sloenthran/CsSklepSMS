@@ -20,6 +20,10 @@ public class AuthenticationCleanService {
                 this.clean.cleanText(registerRequestDto.getPassword())
         );
 
+        registerRequestDto.setPasswordCheck(
+                this.clean.cleanText(registerRequestDto.getPasswordCheck())
+        );
+
         registerRequestDto.setUsername(
                 this.clean.cleanText(registerRequestDto.getUsername())
         );

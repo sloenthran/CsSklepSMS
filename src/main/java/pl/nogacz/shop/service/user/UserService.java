@@ -14,6 +14,7 @@ import pl.nogacz.shop.exception.validation.BadOldPasswordException;
 import pl.nogacz.shop.scheduler.user.UserRepository;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,7 +42,7 @@ public class UserService implements UserDetailsService {
     public User registerUser(final RegisterRequestDto registerRequestDto) throws Exception {
         this.userValidService.validUsername(registerRequestDto.getUsername());
         this.userValidService.validEmail(registerRequestDto.getEmail());
-        this.userValidService.validPassword(registerRequestDto.getPassword());
+        this.userValidService.validPassword(registerRequestDto.getPassword(), registerRequestDto.getPasswordCheck());
 
         UserRole userRole = this.userRoleService.loadUserRoleByRole(Role.USER);
         List<UserRole> authorities = new ArrayList<>();
@@ -52,6 +53,7 @@ public class UserService implements UserDetailsService {
                 .username(registerRequestDto.getUsername())
                 .password(this.passwordEncoder.encode(registerRequestDto.getPassword()))
                 .email(registerRequestDto.getEmail())
+                .accountExpiredTime(LocalDateTime.now())
                 .build();
 
         return this.saveUser(user);

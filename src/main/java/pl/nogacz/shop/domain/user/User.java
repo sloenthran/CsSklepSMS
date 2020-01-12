@@ -9,6 +9,7 @@ import pl.nogacz.shop.domain.server.Server;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +40,10 @@ public class User implements UserDetails {
     @Column(name = "account_non_locked")
     @Builder.Default
     private boolean accountNonLocked = true;
+
+    @NotNull
+    @Column(name = "account_expired_time")
+    private LocalDateTime accountExpiredTime;
 
     @NotNull
     @Column(name = "account_non_expired")

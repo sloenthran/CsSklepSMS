@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import pl.nogacz.shop.dto.user.UserDto;
 
 @Getter
 @Setter
@@ -11,4 +12,5 @@ import lombok.Setter;
 @AllArgsConstructor
 public class AuthenticationResponseDto {
     private String token;
+    private UserDto userDto;
 }

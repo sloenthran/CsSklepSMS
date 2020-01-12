@@ -17,5 +17,7 @@ public class RegisterRequestDto {
     @NotNull
     private String password;
     @NotNull
+    private String passwordCheck;
+    @NotNull
     private String email;
 }

@@ -2,8 +2,7 @@ package pl.nogacz.shop.domain.user;
 
 public enum  Role {
     USER,
-    ADMIN,
-    ROOT;
+    ADMIN;
 
     public boolean isUser() {
         return this == USER;
@@ -11,9 +10,5 @@ public enum  Role {
 
     public boolean isAdmin() {
         return this == ADMIN;
-    }
-
-    public boolean isRoot() {
-        return this == ROOT;
     }
 }

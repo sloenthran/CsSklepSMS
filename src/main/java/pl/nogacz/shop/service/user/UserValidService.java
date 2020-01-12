@@ -3,6 +3,7 @@ package pl.nogacz.shop.service.user;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.nogacz.shop.exception.validation.EmailExistException;
+import pl.nogacz.shop.exception.validation.PasswordIsNotThisSameException;
 import pl.nogacz.shop.exception.validation.PasswordTooShortException;
 import pl.nogacz.shop.exception.validation.UsernameExistException;
 import pl.nogacz.shop.scheduler.user.UserRepository;
@@ -14,7 +15,7 @@ import javax.transaction.Transactional;
 @Transactional
 @AllArgsConstructor
 public class UserValidService {
-    public static final int MIN_PASSWORD_LENGTH = 24;
+    public static final int MIN_PASSWORD_LENGTH = 10;
     private UserRepository userRepository;
     private EmailValidate emailValidate;
 
@@ -24,6 +25,14 @@ public class UserValidService {
         if(this.userRepository.existsByEmail(email)) {
             throw new EmailExistException();
         }
+    }
+
+    public void validPassword(String password, String passwordCheck) throws Exception {
+        if(!password.contains(passwordCheck) || password == null || passwordCheck == null) {
+            throw new PasswordIsNotThisSameException();
+        }
+
+        validPassword(password);
     }
 
     public void validPassword(String password) throws Exception {

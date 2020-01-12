@@ -6,7 +6,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import pl.nogacz.shop.config.authentication.util.TokenUtil;
 import pl.nogacz.shop.domain.user.User;
@@ -38,25 +37,25 @@ public class AuthenticationController {
     public AuthenticationResponseDto createAuthenticationToken(@RequestBody AuthenticationRequestDto authenticationRequestDto) throws Exception {
         authenticationRequestDto = cleanService.cleanAuthenticationRequestDto(authenticationRequestDto);
 
-        this.authenticate(authenticationRequestDto);
+        authenticate(authenticationRequestDto);
 
-        final UserDetails user = this.userService.loadUserByUsername(authenticationRequestDto.getUsername());
-        final String token = this.tokenUtil.generateToken(user);
+        final User user = userService.loadUserByUsername(authenticationRequestDto.getUsername());
+        final String token = tokenUtil.generateToken(user);
 
-        return new AuthenticationResponseDto(token);
+        return new AuthenticationResponseDto(token, userMapper.mapUserToUserDto(user));
     }
 
     @PutMapping(value = "register")
     public UserDto register(@RequestBody RegisterRequestDto registerRequestDto) throws Exception {
         registerRequestDto = cleanService.cleanRegisterRequestDto(registerRequestDto);
 
-        User user = this.userService.registerUser(registerRequestDto);
-        return this.userMapper.mapUserToUserDto(user);
+        User user = userService.registerUser(registerRequestDto);
+        return userMapper.mapUserToUserDto(user);
     }
 
     private void authenticate(AuthenticationRequestDto authenticationRequestDto) throws Exception {
         try {
-            this.authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequestDto.getUsername(), authenticationRequestDto.getPassword()));
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequestDto.getUsername(), authenticationRequestDto.getPassword()));
         } catch (BadCredentialsException | InternalAuthenticationServiceException e) {
             throw new InvalidCredentialsException();
         }
