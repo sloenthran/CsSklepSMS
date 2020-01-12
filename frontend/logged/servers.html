@@ -1,0 +1,94 @@
+<html lang="pl">
+
+<head id="header">
+    <meta charset="utf-8">
+    <title>CsSklepSMS :: Panel administracyjny :: Dodaj serwer</title>
+</head>
+
+<body id="page-top">
+
+  <div id="wrapper">
+
+      <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+          <p id="sidebar-menu"></p>
+      </ul>
+
+      <div id="content-wrapper" class="d-flex flex-column">
+
+          <div id="content">
+              <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                  Lista serwerów
+              </nav>
+              <div class="card shadow mb-4">
+                  <div class="card-body">
+                      <div class="table-responsive">
+                          <table class="table table-bordered dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+                                <thead>
+                                    <tr role="row">
+                                        <th>ID</th>
+                                        <th>Nazwa serwera</th>
+                                        <th>IP</th>
+                                        <th>Opcje</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="table-body">
+
+                                </tbody>
+                          </table>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          <div id="fotter"></div>
+
+      </div>
+
+  </div>
+
+  <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fas fa-angle-up"></i>
+  </a>
+
+  <script src="../vendor/jquery/jquery.min.js"></script>
+  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <script src="../js/settings.js"></script>
+  <script src="../js/include.js"></script>
+
+  <script type="text/javascript">
+
+      function getServers() {
+          jQuery.ajax ({
+              url: shopUrl + "/servers",
+              type: "GET",
+              dataType: "json",
+              success: function(data){
+                  var output = "";
+
+                  for(var i in data) {
+                      output += "<tr role='row'>" +
+                          "<td>"+ data[i].id +"</td>" +
+                          "<td>"+ data[i].serverName +"</td>" +
+                          "<td>"+ data[i].ip +"</td>" +
+                          "<td>" +
+                            "<a href=\"edit_server.html?id="+ data[i].id +"\" class=\"btn btn-success btn-circle\"><i class=\"fas fa-edit\"></i></a>" +
+                            "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+
+                            "<a href=\"delete_server.html?id="+ data[i].id +"\" class=\"btn btn-danger btn-circle\"><i class=\"fas fa-trash\"></i></a>"+
+                          "</td>"+
+                          "</tr>";
+                  }
+
+                  $("#table-body").html(output);
+              }
+          });
+      }
+
+      getServers();
+  </script>
+
+</body>
+
+</html>

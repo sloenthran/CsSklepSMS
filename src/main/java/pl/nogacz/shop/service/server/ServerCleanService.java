@@ -19,8 +19,6 @@ public class ServerCleanService {
                 htmlClean.cleanText(addServerRequestDto.getIp())
         );
 
-        System.out.println(addServerRequestDto.getIp());
-
         return addServerRequestDto;
     }
 }

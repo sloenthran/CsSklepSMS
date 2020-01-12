@@ -9,6 +9,7 @@ import pl.nogacz.shop.repository.server.ServerRepository;
 import pl.nogacz.shop.service.user.UserService;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @Transactional
@@ -29,6 +30,12 @@ public class ServerService {
                 .build();
 
         return serverRepository.save(server);
+    }
+
+    public List<Server> getServers(String username) {
+        User user = userService.loadUserByUsername(username);
+
+        return serverRepository.findAllByUserEqualsOrderById(user);
     }
 
 }

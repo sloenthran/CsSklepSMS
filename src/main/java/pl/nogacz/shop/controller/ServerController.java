@@ -12,6 +12,8 @@ import pl.nogacz.shop.mapper.ServerMapper;
 import pl.nogacz.shop.service.server.ServerCleanService;
 import pl.nogacz.shop.service.server.ServerService;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin("*")
 @AllArgsConstructor
@@ -32,5 +34,11 @@ public class ServerController {
         Server server = serverService.addServer(authentication.getName(), addServerRequestDto);
 
         return serverMapper.mapServerToServerDto(server);
+    }
+
+    @GetMapping("/servers")
+    public List<ServerDto> getServers(@Autowired Authentication authentication) {
+        List<Server> servers = serverService.getServers(authentication.getName());
+        return serverMapper.mapListServerToListServerDto(servers);
     }
 }
