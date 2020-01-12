@@ -27,6 +27,10 @@ public class Server {
     private String serverName;
 
     @NotNull
+    @Column(name = "ip")
+    private String ip;
+
+    @NotNull
     @ManyToOne(
             fetch = FetchType.LAZY,
             cascade = CascadeType.ALL

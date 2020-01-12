@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
-  <meta name="author" content="">
+  <meta name="author" content="Dawid 'Sloenthran' Nogacz <dawid@nogacz.pl>">
 
   <title>CsSklepSMS :: Rejestracja</title>
 
@@ -34,7 +34,21 @@
               <div class="text-center">
                 <h1 class="h4 text-gray-900 mb-4">Rejestracja</h1>
 
-                <p id="error-register" style="color: red;"></p>
+                <p class="btn btn-danger btn-icon-split" id="error-box">
+                        <span class="icon text-white-50">
+                          <i class="fas fa-exclamation-triangle"></i>
+                        </span>
+
+                  <span class="text" id="error"></span>
+                </p>
+
+                <p class="btn btn-success btn-icon-split" id="success-box">
+                        <span class="icon text-white-50">
+                          <i class="fas fa-check"></i>
+                        </span>
+
+                  <span class="text">Serwer został dodany pomyślnie!</span>
+                </p>
               </div>
               <form id="register-form" action="#" class="user">
                 <div class="form-group">
@@ -79,8 +93,13 @@
   <script src="js/settings.js"></script>
 
   <script type="text/javascript">
+    $("#error").hide();
+    $("#error-box").hide();
+    $("#success-box").hide();
+
     $("#register-form").on("submit", function() {
-      $("#error-register").hide();
+      $("#error").hide();
+      $("#error-box").hide();
 
       var _username = $('#username').val();
       var _password = $('#password').val();
@@ -93,14 +112,13 @@
         data: JSON.stringify({username: _username, password: _password, passwordCheck: _passwordCheck, email: _email}),
         dataType: "json",
         success: function(){
-          alert("Rejestracja zakończona pomyślnie");
-          location.href = "login.html";
+          $("#success-box").show();
           return true;
         },
         error: function(jqXHR, textStatus, errorThrown) {
           var responseText = jQuery.parseJSON(jqXHR.responseText);
-          $("#error-register").html(responseText.message);
-          $("#error-register").show();
+          $("#error-box").show();
+          $("#error").html(responseText.message).show();
         }
       });
 

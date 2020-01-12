@@ -12,23 +12,23 @@ import java.util.stream.Collectors;
 @Component
 public class UserMapper {
     public UserDto mapUserToUserDto(final User user) {
-        return new UserDto(
-                user.getId(),
-                user.getUsername(),
-                user.getEmail(),
-                user.isAccountNonLocked(),
-                user.isAccountNonExpired(),
-                user.isCredentialsNonExpired(),
-                user.isEnabled(),
-                this.mapListUserRoleToListUserRoleDto(user.getAuthorities())
-        );
+        return UserDto.builder()
+                .id(user.getId())
+                .username(user.getUsername())
+                .email(user.getEmail())
+                .accountNonLocked(user.isAccountNonLocked())
+                .accountNonExpired(user.isAccountNonExpired())
+                .credentialsNonExpired(user.isCredentialsNonExpired())
+                .enabled(user.isEnabled())
+                .authorities(mapListUserRoleToListUserRoleDto(user.getAuthorities()))
+                .build();
     }
 
     public UserRoleDto mapUserRoleToUserRoleDto(final UserRole userRole) {
-        return new UserRoleDto(
-                userRole.getId(),
-                userRole.getRole()
-        );
+        return UserRoleDto.builder()
+                .id(userRole.getId())
+                .role(userRole.getRole())
+                .build();
     }
 
     public List<UserRoleDto> mapListUserRoleToListUserRoleDto(final List<UserRole> userRoles) {

@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
-  <meta name="author" content="">
+  <meta name="author" content="Dawid 'Sloenthran' Nogacz <dawid@nogacz.pl>">
 
   <title>CsSklepSMS :: Logowanie</title>
 
@@ -39,7 +39,16 @@
                   <div class="text-center">
                     <h1 class="h4 text-gray-900 mb-4">Logowanie</h1>
 
-                    <p id="error-login" style="color: red;"></p>
+
+                    </a>
+
+                    <p class="btn btn-danger btn-icon-split" id="error-box">
+                        <span class="icon text-white-50">
+                          <i class="fas fa-exclamation-triangle"></i>
+                        </span>
+
+                      <span class="text" id="error"></span>
+                    </p>
                   </div>
                   <form id="login-form" action="#" class="user">
                     <div class="form-group">
@@ -80,8 +89,12 @@
   <script src="js/settings.js"></script>
 
   <script type="text/javascript">
+    $("#error").hide();
+    $("#error-box").hide();
+
     $("#login-form").on("submit", function() {
-      $("#error-login").hide();
+      $("#error-box").hide();
+      $("#error").hide();
 
       var _username = $('#username').val();
       var _password = $('#password').val();
@@ -100,8 +113,8 @@
         },
         error: function(jqXHR, textStatus, errorThrown) {
           var responseText = jQuery.parseJSON(jqXHR.responseText);
-          $("#error-login").html(responseText.message);
-          $("#error-login").show();
+          $("#error-box").show();
+          $("#error").html(responseText.message).show();
         }
       });
 

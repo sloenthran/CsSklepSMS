@@ -6,4 +6,5 @@ import pl.nogacz.shop.domain.server.Server;
 
 @Repository
 public interface ServerRepository extends JpaRepository<Server, Long> {
+    boolean existsByIp(String ip);
 }

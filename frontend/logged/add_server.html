@@ -1,0 +1,100 @@
+<html lang="pl">
+
+<head id="header">
+    <meta charset="utf-8">
+    <title>CsSklepSMS :: Panel administracyjny :: Dodaj serwer</title>
+</head>
+
+<body id="page-top">
+
+  <div id="wrapper">
+
+      <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+          <p id="sidebar-menu"></p>
+      </ul>
+
+      <div id="content-wrapper" class="d-flex flex-column">
+
+          <div id="content">
+              <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                  Dodaj serwer
+              </nav>
+              <div class="card shadow mb-4">
+                  <p class="btn btn-danger btn-icon-split" id="error-box">
+                  <span class="icon text-white-50">
+                      <span class="text" id="error"></span>
+                  </p>
+
+                  <p class="btn btn-success btn-icon-split" id="success-box">
+                      <span class="text">Serwer został dodany pomyślnie!</span>
+                  </p>
+
+                  <div class="card-body">
+                      <form id="form" action="#" class="user">
+                          <div class="form-group">
+                              <input type="text" class="form-control form-control-user" id="serverName" placeholder="Nazwa serwera" required>
+                          </div>
+                          <div class="form-group">
+                              <input type="text" class="form-control form-control-user" id="serverIp" placeholder="IP" required>
+                          </div>
+                          <input type="submit" class="btn btn-primary btn-user btn-block" value="Dodaj serwer">
+                          <hr>
+                      </form>
+
+                      <br><br>
+                  </div>
+              </div>
+          </div>
+
+          <div id="fotter"></div>
+
+      </div>
+
+  </div>
+
+  <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fas fa-angle-up"></i>
+  </a>
+
+  <script src="../vendor/jquery/jquery.min.js"></script>
+  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <script src="../js/settings.js"></script>
+  <script src="../js/include.js"></script>
+
+  <script type="text/javascript">
+      $("#success-box").hide();
+      $("#error-box").hide();
+
+      $("#form").on("submit", function() {
+          $("#success-box").hide();
+          $("#error-box").hide();
+          $("#error").hide();
+
+          var _serverName = $('#serverName').val();
+          var _serverIp = $('#serverIp').val();
+
+          jQuery.ajax ({
+              url: shopUrl + "/server",
+              type: "PUT",
+              data: JSON.stringify({serverName: _serverName, ip: _serverIp}),
+              dataType: "json",
+              success: function(){
+                  $("#success-box").show();
+                  return true;
+              },
+              error: function(jqXHR, textStatus, errorThrown) {
+                  var responseText = jQuery.parseJSON(jqXHR.responseText);
+                  $("#error-box").show();
+                  $("#error").html(responseText.message).show();
+              }
+          });
+
+          return false;
+      });
+  </script>
+
+</body>
+
+</html>
