@@ -17,7 +17,7 @@
 
           <div id="content">
               <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                  Dodaj serwer
+                  Dodaj usługę
               </nav>
               <div class="card shadow mb-4">
                   <p class="btn btn-danger btn-icon-split" id="error-box">
@@ -26,18 +26,21 @@
                   </p>
 
                   <p class="btn btn-success btn-icon-split" id="success-box">
-                      <span class="text">Serwer został dodany pomyślnie!</span>
+                      <span class="text">Usługa została dodana pomyślnie!</span>
                   </p>
 
                   <div class="card-body">
                       <form id="form" action="#" class="user">
                           <div class="form-group">
-                              <input type="text" class="form-control" id="serverName" placeholder="Nazwa serwera" required>
+                              <input type="text" class="form-control" id="serviceName" placeholder="Nazwa usługi" required>
                           </div>
                           <div class="form-group">
-                              <input type="text" class="form-control" id="serverIp" placeholder="IP" required>
+                              <input type="text" class="form-control" id="flags" placeholder="Flagi" required>
                           </div>
-                          <input type="submit" class="btn btn-primary btn-block" value="Dodaj serwer">
+                          <div class="form-group">
+                              <select class="form-control dropdown" id="serverId" required></select>
+                          </div>
+                          <input type="submit" class="btn btn-primary btn-block" value="Dodaj usługę">
                           <hr>
                       </form>
 
@@ -67,18 +70,34 @@
       $("#success-box").hide();
       $("#error-box").hide();
 
+      function getServers() {
+          jQuery.ajax ({
+              url: shopUrl + "/servers",
+              type: "GET",
+              dataType: "json",
+              success: function (data) {
+                  for (var i in data) {
+                      $("#serverId").append("<option value='" + data[i].id + "'>" + data[i].serverName + " (" + data[i].ip + ")</option>");
+                  }
+              }
+          });
+      }
+
+      getServers();
+
       $("#form").on("submit", function() {
           $("#success-box").hide();
           $("#error-box").hide();
           $("#error").hide();
 
-          var _serverName = $('#serverName').val();
-          var _serverIp = $('#serverIp').val();
+          var _serviceName = $('#serviceName').val();
+          var _serverId = $('#serverId').val();
+          var _flags = $('#flags').val();
 
           jQuery.ajax ({
-              url: shopUrl + "/server",
+              url: shopUrl + "/service",
               type: "PUT",
-              data: JSON.stringify({serverName: _serverName, ip: _serverIp}),
+              data: JSON.stringify({name: _serviceName, serverId: _serverId, flag: _flags}),
               dataType: "json",
               success: function(){
                   $("#success-box").show();

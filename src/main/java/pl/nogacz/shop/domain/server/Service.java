@@ -22,6 +22,10 @@ public class Service {
     private Long id;
 
     @NotNull
+    @Column(name = "name")
+    private String name;
+
+    @NotNull
     @ManyToOne(
             fetch = FetchType.LAZY,
             cascade = CascadeType.ALL

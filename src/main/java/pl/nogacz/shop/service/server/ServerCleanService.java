@@ -3,6 +3,7 @@ package pl.nogacz.shop.service.server;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.nogacz.shop.dto.server.AddServerRequestDto;
+import pl.nogacz.shop.dto.server.AddServiceRequsetDto;
 import pl.nogacz.shop.util.HtmlClean;
 
 @Service
@@ -20,5 +21,17 @@ public class ServerCleanService {
         );
 
         return addServerRequestDto;
+    }
+
+    public AddServiceRequsetDto cleanAddServiceRequestDto(final AddServiceRequsetDto addServiceRequsetDto) {
+        addServiceRequsetDto.setFlag(
+                htmlClean.cleanText(addServiceRequsetDto.getFlag())
+        );
+
+        addServiceRequsetDto.setName(
+                htmlClean.cleanText(addServiceRequsetDto.getName())
+        );
+
+        return addServiceRequsetDto;
     }
 }

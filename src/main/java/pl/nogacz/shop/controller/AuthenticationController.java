@@ -59,8 +59,7 @@ public class AuthenticationController {
     @PutMapping(value = "/register")
     public UserDto register(@RequestBody RegisterRequestDto registerRequestDto) throws Exception {
         registerRequestDto = cleanService.cleanRegisterRequestDto(registerRequestDto);
-
-        User user = userService.registerUser(registerRequestDto);
+        final User user = userService.registerUser(registerRequestDto);
         return userMapper.mapUserToUserDto(user);
     }
 

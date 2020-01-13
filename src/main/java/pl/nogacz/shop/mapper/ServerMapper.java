@@ -2,7 +2,9 @@ package pl.nogacz.shop.mapper;
 
 import org.springframework.stereotype.Component;
 import pl.nogacz.shop.domain.server.Server;
+import pl.nogacz.shop.domain.server.Service;
 import pl.nogacz.shop.dto.server.ServerDto;
+import pl.nogacz.shop.dto.server.ServiceDto;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,5 +23,14 @@ public class ServerMapper {
         return servers.stream()
                 .map(this::mapServerToServerDto)
                 .collect(Collectors.toList());
+    }
+
+    public ServiceDto mapServiceToServiceDto(final Service service) {
+        return ServiceDto.builder()
+                .id(service.getId())
+                .serverId(service.getServer().getId())
+                .name(service.getName())
+                .flag(service.getFlag())
+                .build();
     }
 }
