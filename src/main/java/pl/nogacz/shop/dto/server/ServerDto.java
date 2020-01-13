@@ -9,6 +9,6 @@ import lombok.*;
 @Builder
 public class ServerDto {
     private Long id;
-    private String serverName;
+    private String name;
     private String ip;
 }

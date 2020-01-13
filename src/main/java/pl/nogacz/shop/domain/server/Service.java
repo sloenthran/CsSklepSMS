@@ -33,19 +33,6 @@ public class Service {
     @JoinColumn(name = "server_id")
     private Server server;
 
-    @NotNull
-    @Column(name = "flag")
-    private String flag;
-
-    @OneToMany(
-            targetEntity = Price.class,
-            cascade = CascadeType.ALL,
-            mappedBy = "service",
-            fetch = FetchType.LAZY
-    )
-    @Builder.Default
-    private List<Price> prices = new ArrayList<>();
-
     @OneToMany(
             targetEntity = PurchasedService.class,
             cascade = CascadeType.ALL,

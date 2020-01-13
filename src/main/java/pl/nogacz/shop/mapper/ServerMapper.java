@@ -15,7 +15,7 @@ public class ServerMapper {
         return ServerDto.builder()
                 .id(server.getId())
                 .ip(server.getIp())
-                .serverName(server.getServerName())
+                .name(server.getName())
                 .build();
     }
 
@@ -30,7 +30,6 @@ public class ServerMapper {
                 .id(service.getId())
                 .serverId(service.getServer().getId())
                 .name(service.getName())
-                .flag(service.getFlag())
                 .build();
     }
 }

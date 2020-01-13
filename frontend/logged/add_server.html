@@ -78,7 +78,7 @@
           jQuery.ajax ({
               url: shopUrl + "/server",
               type: "PUT",
-              data: JSON.stringify({serverName: _serverName, ip: _serverIp}),
+              data: JSON.stringify({name: _serverName, ip: _serverIp}),
               dataType: "json",
               success: function(){
                   $("#success-box").show();

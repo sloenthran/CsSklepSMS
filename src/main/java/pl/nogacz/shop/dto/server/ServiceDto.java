@@ -11,5 +11,4 @@ public class ServiceDto {
     private Long id;
     private String name;
     private Long serverId;
-    private String flag;
 }

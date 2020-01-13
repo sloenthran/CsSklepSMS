@@ -16,8 +16,5 @@ public class AddServiceRequsetDto {
     private Long serverId;
 
     @NotNull
-    private String flag;
-
-    @NotNull
     private String name;
 }

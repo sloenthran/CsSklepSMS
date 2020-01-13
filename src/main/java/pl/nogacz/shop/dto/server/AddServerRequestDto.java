@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 public class AddServerRequestDto {
     @NotNull
-    private String serverName;
+    private String name;
 
     @NotNull
     private String ip;

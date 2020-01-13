@@ -35,9 +35,6 @@
                               <input type="text" class="form-control" id="serviceName" placeholder="Nazwa usługi" required>
                           </div>
                           <div class="form-group">
-                              <input type="text" class="form-control" id="flags" placeholder="Flagi" required>
-                          </div>
-                          <div class="form-group">
                               <select class="form-control dropdown" id="serverId" required></select>
                           </div>
                           <input type="submit" class="btn btn-primary btn-block" value="Dodaj usługę">
@@ -69,6 +66,7 @@
   <script type="text/javascript">
       $("#success-box").hide();
       $("#error-box").hide();
+      $("#form").hide();
 
       function getServers() {
           jQuery.ajax ({
@@ -76,8 +74,16 @@
               type: "GET",
               dataType: "json",
               success: function (data) {
-                  for (var i in data) {
-                      $("#serverId").append("<option value='" + data[i].id + "'>" + data[i].serverName + " (" + data[i].ip + ")</option>");
+                  console.log(data);
+                  if(data.length == 0) {
+                      $("#error-box").show();
+                      $("#error").html("Najpierw musisz dodać jakiś serwer!").show();
+                  } else {
+                      $("#form").show();
+
+                      for (var i in data) {
+                          $("#serverId").append("<option value='" + data[i].id + "'>" + data[i].name + " (" + data[i].ip + ")</option>");
+                      }
                   }
               }
           });
@@ -92,12 +98,11 @@
 
           var _serviceName = $('#serviceName').val();
           var _serverId = $('#serverId').val();
-          var _flags = $('#flags').val();
 
           jQuery.ajax ({
               url: shopUrl + "/service",
               type: "PUT",
-              data: JSON.stringify({name: _serviceName, serverId: _serverId, flag: _flags}),
+              data: JSON.stringify({name: _serviceName, serverId: _serverId}),
               dataType: "json",
               success: function(){
                   $("#success-box").show();

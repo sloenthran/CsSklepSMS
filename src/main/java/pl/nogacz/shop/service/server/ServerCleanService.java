@@ -12,8 +12,8 @@ public class ServerCleanService {
     private HtmlClean htmlClean;
 
     public AddServerRequestDto cleanAddServerRequestDto(final AddServerRequestDto addServerRequestDto) {
-        addServerRequestDto.setServerName(
-                htmlClean.cleanText(addServerRequestDto.getServerName())
+        addServerRequestDto.setName(
+                htmlClean.cleanText(addServerRequestDto.getName())
         );
 
         addServerRequestDto.setIp(
@@ -24,10 +24,6 @@ public class ServerCleanService {
     }
 
     public AddServiceRequsetDto cleanAddServiceRequestDto(final AddServiceRequsetDto addServiceRequsetDto) {
-        addServiceRequsetDto.setFlag(
-                htmlClean.cleanText(addServiceRequsetDto.getFlag())
-        );
-
         addServiceRequsetDto.setName(
                 htmlClean.cleanText(addServiceRequsetDto.getName())
         );

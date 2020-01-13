@@ -47,7 +47,8 @@
                           <i class="fas fa-check"></i>
                         </span>
 
-                  <span class="text">Serwer został dodany pomyślnie!</span>
+                  <span class="text">Rejestracja przebiegła pomyślnie!<br>
+                  Teraz możesz się zalogować...</span>
                 </p>
               </div>
               <form id="register-form" action="#" class="user">
@@ -100,6 +101,7 @@
     $("#register-form").on("submit", function() {
       $("#error").hide();
       $("#error-box").hide();
+      $("#success-box").hide();
 
       var _username = $('#username').val();
       var _password = $('#password').val();

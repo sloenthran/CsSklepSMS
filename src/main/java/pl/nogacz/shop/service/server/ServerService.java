@@ -29,7 +29,7 @@ public class ServerService {
         serverValidService.validIp(addServerRequestDto.getIp());
 
         Server server = Server.builder()
-                .serverName(addServerRequestDto.getServerName())
+                .name(addServerRequestDto.getName())
                 .ip(addServerRequestDto.getIp())
                 .user(user)
                 .build();
@@ -48,7 +48,6 @@ public class ServerService {
         Service service = Service.builder()
                 .server(server)
                 .name(addServiceRequsetDto.getName())
-                .flag(addServiceRequsetDto.getFlag())
                 .build();
 
         return serviceRepository.save(service);

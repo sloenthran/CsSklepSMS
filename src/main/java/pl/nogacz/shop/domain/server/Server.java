@@ -23,8 +23,8 @@ public class Server {
     private Long id;
 
     @NotNull
-    @Column(name = "server_name")
-    private String serverName;
+    @Column(name = "name")
+    private String name;
 
     @NotNull
     @Column(name = "ip")

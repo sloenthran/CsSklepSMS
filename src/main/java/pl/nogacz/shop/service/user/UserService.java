@@ -27,16 +27,8 @@ public class UserService implements UserDetailsService {
     private UserValidService userValidService;
     private UserRoleService userRoleService;
 
-    public User loadUserById(final Long id) throws UserNotFoundException {
-        return this.userRepository.findById(id).orElseThrow(UserNotFoundException::new);
-    }
-
     public User loadUserByUsername(final String username) {
         return this.userRepository.findByUsername(username).orElse(null);
-    }
-
-    public List<User> loadUsers() {
-        return this.userRepository.findAll();
     }
 
     public User registerUser(final RegisterRequestDto registerRequestDto) throws Exception {
@@ -59,10 +51,6 @@ public class UserService implements UserDetailsService {
         return this.saveUser(user);
     }
 
-    public Long getCountUsers() {
-        return this.userRepository.count();
-    }
-
     public User saveUser(final User user) {
         return this.userRepository.save(user);
     }
@@ -80,23 +68,5 @@ public class UserService implements UserDetailsService {
         this.saveUser(user);
 
         return true;
-    }
-
-    public boolean changeEmail(String username, final String email) throws Exception {
-        this.userValidService.validEmail(email);
-
-        User user = this.loadUserByUsername(username);
-
-        user.setEmail(email);
-        this.saveUser(user);
-
-        return true;
-    }
-
-    public void deleteUserById(final Long id) throws UserNotFoundException {
-        User user = this.loadUserById(id);
-        user.getAuthorities().removeAll(user.getAuthorities());
-
-        this.userRepository.delete(user);
     }
 }
