@@ -1,16 +1,20 @@
 package pl.nogacz.shop.controller;
 
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import pl.nogacz.shop.config.authentication.util.TokenUtil;
 import pl.nogacz.shop.domain.user.User;
 import pl.nogacz.shop.dto.authentication.AuthenticationRequestDto;
 import pl.nogacz.shop.dto.authentication.AuthenticationResponseDto;
+import pl.nogacz.shop.dto.authentication.RefreshTokenDto;
 import pl.nogacz.shop.dto.authentication.RegisterRequestDto;
 import pl.nogacz.shop.dto.user.UserDto;
 import pl.nogacz.shop.exception.validation.InvalidCredentialsException;
@@ -33,7 +37,7 @@ public class AuthenticationController {
     private UserMapper userMapper;
     private AuthenticationCleanService cleanService;
 
-    @PostMapping(value = "login")
+    @PostMapping(value = "/login")
     public AuthenticationResponseDto createAuthenticationToken(@RequestBody AuthenticationRequestDto authenticationRequestDto) throws Exception {
         authenticationRequestDto = cleanService.cleanAuthenticationRequestDto(authenticationRequestDto);
 
@@ -45,7 +49,14 @@ public class AuthenticationController {
         return new AuthenticationResponseDto(token, userMapper.mapUserToUserDto(user));
     }
 
-    @PutMapping(value = "register")
+    @PreAuthorize("hasAuthority('USER')")
+    @PostMapping(value = "/login/refresh")
+    public RefreshTokenDto refreshToken(@Autowired Authentication authentication) {
+        final User user = userService.loadUserByUsername(authentication.getName());
+        return new RefreshTokenDto(tokenUtil.generateToken(user));
+    }
+
+    @PutMapping(value = "/register")
     public UserDto register(@RequestBody RegisterRequestDto registerRequestDto) throws Exception {
         registerRequestDto = cleanService.cleanRegisterRequestDto(registerRequestDto);
 
