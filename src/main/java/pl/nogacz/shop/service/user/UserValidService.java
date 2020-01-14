@@ -6,7 +6,7 @@ import pl.nogacz.shop.exception.validation.EmailExistException;
 import pl.nogacz.shop.exception.validation.PasswordIsNotThisSameException;
 import pl.nogacz.shop.exception.validation.PasswordTooShortException;
 import pl.nogacz.shop.exception.validation.UsernameExistException;
-import pl.nogacz.shop.scheduler.user.UserRepository;
+import pl.nogacz.shop.repository.user.UserRepository;
 import pl.nogacz.shop.util.EmailValidate;
 
 import javax.transaction.Transactional;

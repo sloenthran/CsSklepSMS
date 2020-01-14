@@ -1,8 +1,10 @@
 package pl.nogacz.shop.mapper;
 
 import org.springframework.stereotype.Component;
+import pl.nogacz.shop.domain.server.Price;
 import pl.nogacz.shop.domain.server.Server;
 import pl.nogacz.shop.domain.server.Service;
+import pl.nogacz.shop.dto.server.PriceDto;
 import pl.nogacz.shop.dto.server.ServerDto;
 import pl.nogacz.shop.dto.server.ServiceDto;
 
@@ -30,6 +32,29 @@ public class ServerMapper {
                 .id(service.getId())
                 .serverId(service.getServer().getId())
                 .name(service.getName())
+                .flags(service.getFlags())
+                .price(mapPriceToPriceDto(service.getPrice()))
                 .build();
+    }
+
+    public List<ServiceDto> mapListServiceToListServiceDto(final List<Service> services) {
+        return services.stream()
+                .map(this::mapServiceToServiceDto)
+                .collect(Collectors.toList());
+    }
+
+    public PriceDto mapPriceToPriceDto(final Price price) {
+        return PriceDto.builder()
+                .id(price.getId())
+                .number(price.getNumber())
+                .value(price.getValue())
+                .description(price.getDescription())
+                .build();
+    }
+
+    public List<PriceDto> mapListPriceToListPriceDto(final List<Price> prices) {
+        return prices.stream()
+                .map(this::mapPriceToPriceDto)
+                .collect(Collectors.toList());
     }
 }

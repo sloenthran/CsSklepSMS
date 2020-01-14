@@ -2,7 +2,10 @@ package pl.nogacz.shop.service.server;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import pl.nogacz.shop.domain.server.Server;
+import pl.nogacz.shop.domain.user.User;
 import pl.nogacz.shop.exception.validation.BadIpException;
+import pl.nogacz.shop.exception.validation.BadServerIdException;
 import pl.nogacz.shop.exception.validation.IpExistsException;
 import pl.nogacz.shop.repository.server.ServerRepository;
 
@@ -30,6 +33,12 @@ public class ServerValidService {
 
         if(serverRepository.existsByIp(ip)) {
             throw new IpExistsException();
+        }
+    }
+
+    public void validServerOwner(final User user, final Server server) throws Exception {
+        if(!server.getUser().getId().equals(user.getId())) {
+            throw new BadServerIdException();
         }
     }
 }

@@ -1,0 +1,115 @@
+<html lang="pl">
+
+<head id="header">
+    <meta charset="utf-8">
+    <title>CsSklepSMS :: Panel administracyjny :: Dodaj serwer</title>
+</head>
+
+<body id="page-top">
+
+  <div id="wrapper">
+
+      <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+          <p id="sidebar-menu"></p>
+      </ul>
+
+      <div id="content-wrapper" class="d-flex flex-column">
+
+          <div id="content">
+              <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                  Lista usług
+              </nav>
+              <div class="card shadow mb-4">
+                  <p class="btn btn-danger btn-icon-split" id="error-box">
+                     <span class="icon text-white-50">
+                        <span class="text" id="error">Na tym serwerze nie ma żadnych usług!</span>
+                     </span>
+                  </p>
+
+                  <div class="card-body">
+                      <div class="table-responsive">
+                          <table class="table table-bordered dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+                                <thead>
+                                    <tr role="row">
+                                        <th>ID</th>
+                                        <th>Nazwa usługi</th>
+                                        <th>Flagi</th>
+                                        <th>Numer</th>
+                                        <th>Opcje</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="table-body">
+
+                                </tbody>
+                          </table>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          <div id="fotter"></div>
+
+      </div>
+
+  </div>
+
+  <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fas fa-angle-up"></i>
+  </a>
+
+  <script src="../vendor/jquery/jquery.min.js"></script>
+  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <script src="../js/settings.js"></script>
+  <script src="../js/include.js"></script>
+
+  <script type="text/javascript">
+      $("#error-box").hide();
+
+      window.$_GET = new URLSearchParams(location.search);
+      var id = $_GET.get('id');
+
+      if(id == null) {
+          location.href = "index.html";
+      }
+
+      function getServices(id) {
+          jQuery.ajax ({
+              url: shopUrl + "/server/" + id + "/services",
+              type: "GET",
+              dataType: "json",
+              success: function(data){
+                  if(data.length == 0) {
+                      $(".card-body").hide();
+                      $("#error-box").show();
+                  } else {
+                      var output = "";
+
+                      for(var i in data) {
+
+                          output += "<tr role='row'>" +
+                              "<td>"+ data[i].id +"</td>" +
+                              "<td>"+ data[i].name +"</td>" +
+                              "<td>"+ data[i].flags +"</td>" +
+                              "<td>"+ data[i].price.number +" ("+ data[i].price.value +" zł)</td>" +
+                              "<td>" +
+                                "<a href=\"edit_service.html?id="+ data[i].id +"\" class=\"btn btn-success btn-circle\" title='Edytuj usługę''><i class=\"fas fa-edit\"></i></a>" +
+                                "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+
+                                "<a href=\"delete_server.html?id="+ data[i].id +"\" class=\"btn btn-danger btn-circle\" title='Usuń usługę'><i class=\"fas fa-trash\"></i></a>"+
+                              "</td>"+
+                              "</tr>";
+                      }
+                  }
+                  $("#table-body").html(output);
+              }
+          });
+      }
+
+      getServices(id);
+  </script>
+
+</body>
+
+</html>

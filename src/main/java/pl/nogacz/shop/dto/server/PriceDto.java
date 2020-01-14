@@ -7,10 +7,9 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ServiceDto {
+public class PriceDto {
     private Long id;
-    private String name;
-    private Long serverId;
-    private PriceDto price;
-    private String flags;
+    private Long number;
+    private Double value;
+    private String description;
 }

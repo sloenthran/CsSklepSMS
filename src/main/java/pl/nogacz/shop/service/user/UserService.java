@@ -9,9 +9,8 @@ import pl.nogacz.shop.domain.user.User;
 import pl.nogacz.shop.domain.user.UserRole;
 import pl.nogacz.shop.dto.authentication.RegisterRequestDto;
 import pl.nogacz.shop.dto.user.UserChangePasswordDto;
-import pl.nogacz.shop.exception.user.UserNotFoundException;
 import pl.nogacz.shop.exception.validation.BadOldPasswordException;
-import pl.nogacz.shop.scheduler.user.UserRepository;
+import pl.nogacz.shop.repository.user.UserRepository;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;

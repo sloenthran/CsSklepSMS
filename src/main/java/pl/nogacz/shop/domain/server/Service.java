@@ -33,6 +33,18 @@ public class Service {
     @JoinColumn(name = "server_id")
     private Server server;
 
+    @NotNull
+    @Column(name = "flags")
+    private String flags;
+
+    @NotNull
+    @ManyToOne(
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL
+    )
+    @JoinColumn(name = "price_id")
+    private Price price;
+
     @OneToMany(
             targetEntity = PurchasedService.class,
             cascade = CascadeType.ALL,

@@ -17,4 +17,10 @@ public class AddServiceRequsetDto {
 
     @NotNull
     private String name;
+
+    @NotNull
+    private String flags;
+
+    @NotNull
+    private Long priceId;
 }

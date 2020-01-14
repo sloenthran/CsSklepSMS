@@ -28,6 +28,10 @@ public class ServerCleanService {
                 htmlClean.cleanText(addServiceRequsetDto.getName())
         );
 
+        addServiceRequsetDto.setFlags(
+                htmlClean.cleanText(addServiceRequsetDto.getFlags())
+        );
+
         return addServiceRequsetDto;
     }
 }

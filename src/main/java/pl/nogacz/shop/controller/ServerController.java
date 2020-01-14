@@ -5,12 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import pl.nogacz.shop.domain.server.Price;
 import pl.nogacz.shop.domain.server.Server;
 import pl.nogacz.shop.domain.server.Service;
-import pl.nogacz.shop.dto.server.AddServerRequestDto;
-import pl.nogacz.shop.dto.server.AddServiceRequsetDto;
-import pl.nogacz.shop.dto.server.ServerDto;
-import pl.nogacz.shop.dto.server.ServiceDto;
+import pl.nogacz.shop.dto.server.*;
 import pl.nogacz.shop.mapper.ServerMapper;
 import pl.nogacz.shop.service.server.ServerCleanService;
 import pl.nogacz.shop.service.server.ServerService;
@@ -48,5 +46,17 @@ public class ServerController {
         addServiceRequsetDto = serverCleanService.cleanAddServiceRequestDto(addServiceRequsetDto);
         Service service = serverService.addService(authentication.getName(), addServiceRequsetDto);
         return serverMapper.mapServiceToServiceDto(service);
+    }
+
+    @GetMapping("/server/{id}/services")
+    public List<ServiceDto> getServices(@Autowired Authentication authentication, @PathVariable("id") Long serverId) throws Exception {
+        List<Service> services = serverService.getServices(authentication.getName(), serverId);
+        return serverMapper.mapListServiceToListServiceDto(services);
+    }
+
+    @GetMapping("/prices")
+    public List<PriceDto> getPrices() {
+        List<Price> prices = serverService.getPrices();
+        return serverMapper.mapListPriceToListPriceDto(prices);
     }
 }

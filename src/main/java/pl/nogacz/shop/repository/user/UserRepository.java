@@ -1,4 +1,4 @@
-package pl.nogacz.shop.scheduler.user;
+package pl.nogacz.shop.repository.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
