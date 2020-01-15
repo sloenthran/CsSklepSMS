@@ -2,7 +2,7 @@
 
 <head id="header">
     <meta charset="utf-8">
-    <title>CsSklepSMS :: Panel administracyjny :: Dodaj serwer</title>
+    <title>CsSklepSMS :: Panel administracyjny :: Lista usług</title>
 </head>
 
 <body id="page-top">
@@ -18,11 +18,25 @@
           <div id="content">
               <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
                   Lista usług
+
+                  <ul class="navbar-nav ml-auto">
+                      <li class="nav-item dropdown no-arrow">
+                          <a href="add_service.html" class="btn btn-success btn-icon-split">
+                              <span class="text">Dodaj usługę</span>
+                          </a>
+                      </li>
+                  </ul>
               </nav>
               <div class="card shadow mb-4">
                   <p class="btn btn-danger btn-icon-split" id="error-box">
                      <span class="icon text-white-50">
-                        <span class="text" id="error">Na tym serwerze nie ma żadnych usług!</span>
+                        <span class="text">Na tym serwerze nie ma żadnych usług!</span>
+                     </span>
+                  </p>
+
+                  <p class="btn btn-danger btn-icon-split" id="other-error-box">
+                     <span class="icon text-white-50">
+                        <span class="text" id="error"></span>
                      </span>
                   </p>
 
@@ -67,6 +81,7 @@
 
   <script type="text/javascript">
       $("#error-box").hide();
+      $("#other-error-box").hide();
 
       window.$_GET = new URLSearchParams(location.search);
       var id = $_GET.get('id');
@@ -93,7 +108,7 @@
                               "<td>"+ data[i].id +"</td>" +
                               "<td>"+ data[i].name +"</td>" +
                               "<td>"+ data[i].flags +"</td>" +
-                              "<td>"+ data[i].price.number +" ("+ data[i].price.value +" zł)</td>" +
+                              "<td>"+ data[i].number.number +" ("+ data[i].number.value +" zł)</td>" +
                               "<td>" +
                                 "<a href=\"edit_service.html?id="+ data[i].id +"\" class=\"btn btn-success btn-circle\" title='Edytuj usługę''><i class=\"fas fa-edit\"></i></a>" +
                                 "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+
@@ -103,6 +118,13 @@
                       }
                   }
                   $("#table-body").html(output);
+              },
+              error: function(jqXHR, textStatus, errorThrown) {
+                  var responseText = jQuery.parseJSON(jqXHR.responseText);
+                  $(".card-body").hide();
+
+                  $("#other-error-box").show();
+                  $("#error").html(responseText.message).show();
               }
           });
       }

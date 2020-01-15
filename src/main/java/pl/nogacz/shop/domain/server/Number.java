@@ -14,8 +14,8 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @Builder
-@Entity(name = "prices")
-public class Price {
+@Entity(name = "numbers")
+public class Number {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -36,7 +36,7 @@ public class Price {
     @OneToMany(
             targetEntity = Service.class,
             cascade = CascadeType.ALL,
-            mappedBy = "price",
+            mappedBy = "number",
             fetch = FetchType.LAZY
     )
     @Builder.Default

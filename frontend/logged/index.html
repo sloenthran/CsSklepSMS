@@ -18,6 +18,14 @@
     <div id="content">
       <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
         Panel administracyjny
+
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item dropdown no-arrow">
+            <a href="#" class="btn btn-info btn-icon-split">
+              <span class="text" id="username"></span>
+            </a>
+          </li>
+        </ul>
       </nav>
 
       <div class="container-fluid">
@@ -41,6 +49,10 @@
 
 <script src="../js/settings.js"></script>
 <script src="../js/include.js"></script>
+
+<script type="text/javascript">
+    $("#username").html("Zalogowano jako: " + user.username);
+</script>
 
 </body>
 

@@ -43,7 +43,7 @@ public class Service {
             cascade = CascadeType.ALL
     )
     @JoinColumn(name = "price_id")
-    private Price price;
+    private Number number;
 
     @OneToMany(
             targetEntity = PurchasedService.class,

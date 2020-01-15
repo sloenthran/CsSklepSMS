@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-import pl.nogacz.shop.domain.server.Price;
+import pl.nogacz.shop.domain.server.Number;
 import pl.nogacz.shop.domain.server.Server;
 import pl.nogacz.shop.domain.server.Service;
 import pl.nogacz.shop.dto.server.*;
@@ -54,9 +54,9 @@ public class ServerController {
         return serverMapper.mapListServiceToListServiceDto(services);
     }
 
-    @GetMapping("/prices")
-    public List<PriceDto> getPrices() {
-        List<Price> prices = serverService.getPrices();
-        return serverMapper.mapListPriceToListPriceDto(prices);
+    @GetMapping("/numbers")
+    public List<NumberDto> getNumbers() {
+        List<Number> numbers = serverService.getNumbers();
+        return serverMapper.mapListNumberToListNumberDto(numbers);
     }
 }

@@ -26,11 +26,39 @@
     <div id="serwery" class="collapse" aria-labelledby="headingTwo">
         <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="servers.html">Lista serwerów</a>
-            <a class="collapse-item" href="add_server.html">Dodaj serwer</a>
-            <a class="collapse-item" href="add_service.html">Dodaj usługę</a>
         </div>
     </div>
 </li>
+
+<!-- Divider -->
+<hr class="sidebar-divider" id="admin-menu-divider">
+
+<li class="nav-item" id="admin-menu">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#administrator" aria-expanded="true" aria-controls="administrator">
+        <i class="fas fa-fw fa-paw"></i>
+        <span>Administracja sklepem</span>
+    </a>
+    <div id="administrator" class="collapse" aria-labelledby="headingTwo">
+        <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="admin_numbers.html">Lista numerów</a>
+        </div>
+    </div>
+</li>
+
+<script type="text/javascript">
+    $("#admin-menu").hide();
+    $("#admin-menu-divider").hide();
+
+    for(var i in user.authorities) {
+        if(user.authorities[i].role === 'ADMIN') {
+            $("#admin-menu").show();
+            $("#admin-menu-divider").show();
+        }
+    }
+</script>
+
+<!-- Divider -->
+<hr class="sidebar-divider">
 
 <li class="nav-item">
     <a class="nav-link" href="logout.html">

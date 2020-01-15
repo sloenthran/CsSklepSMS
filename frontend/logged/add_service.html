@@ -2,7 +2,7 @@
 
 <head id="header">
     <meta charset="utf-8">
-    <title>CsSklepSMS :: Panel administracyjny :: Dodaj serwer</title>
+    <title>CsSklepSMS :: Panel administracyjny :: Dodaj usługę</title>
 </head>
 
 <body id="page-top">
@@ -42,7 +42,7 @@
                               <select class="form-control dropdown" id="serverId" required></select>
                           </div>
                           <div class="form-group">
-                              <select class="form-control dropdown" id="priceId" required></select>
+                              <select class="form-control dropdown" id="numberId" required></select>
                           </div>
                           <input type="submit" class="btn btn-primary btn-block" value="Dodaj usługę">
                           <hr>
@@ -91,7 +91,7 @@
                           $("#serverId").append("<option value='" + data[i].id + "'>" + data[i].name + " (" + data[i].ip + ")</option>");
                       }
 
-                      getPrices();
+                      getNumbers();
                   }
               }
           });
@@ -99,21 +99,21 @@
 
       getServers();
 
-      function getPrices() {
+      function getNumbers() {
           jQuery.ajax ({
-              url: shopUrl + "/prices",
+              url: shopUrl + "/numbers",
               type: "GET",
               dataType: "json",
               success: function (data) {
                   if(data.length == 0) {
                       $("#form").hide();
                       $("#error-box").show();
-                      $("#error").html("Poproś administratora o dodanie cen!").show();
+                      $("#error").html("Poproś administratora o dodanie numerów!").show();
                   } else {
                       $("#form").show();
 
                       for (var i in data) {
-                          $("#priceId").append("<option value='" + data[i].id + "'>" + data[i].number + " (" + data[i].value + " zł)</option>");
+                          $("#numberId").append("<option value='" + data[i].id + "'>" + data[i].number + " (" + data[i].value + " zł) ["+ data[i].description +"]</option>");
                       }
                   }
               }
@@ -128,12 +128,12 @@
           var _serviceName = $('#serviceName').val();
           var _serverId = $('#serverId').val();
           var _flags = $('#flags').val();
-          var _priceId = $('#priceId').val();
+          var _numberId = $('#numberId').val();
 
           jQuery.ajax ({
               url: shopUrl + "/service",
               type: "PUT",
-              data: JSON.stringify({name: _serviceName, serverId: _serverId, flags: _flags, priceId: _priceId}),
+              data: JSON.stringify({name: _serviceName, serverId: _serverId, flags: _flags, numberId: _numberId}),
               dataType: "json",
               success: function(){
                   $("#success-box").show();

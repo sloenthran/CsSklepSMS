@@ -11,6 +11,6 @@ public class ServiceDto {
     private Long id;
     private String name;
     private Long serverId;
-    private PriceDto price;
+    private NumberDto number;
     private String flags;
 }

@@ -1,10 +1,10 @@
 package pl.nogacz.shop.mapper;
 
 import org.springframework.stereotype.Component;
-import pl.nogacz.shop.domain.server.Price;
+import pl.nogacz.shop.domain.server.Number;
 import pl.nogacz.shop.domain.server.Server;
 import pl.nogacz.shop.domain.server.Service;
-import pl.nogacz.shop.dto.server.PriceDto;
+import pl.nogacz.shop.dto.server.NumberDto;
 import pl.nogacz.shop.dto.server.ServerDto;
 import pl.nogacz.shop.dto.server.ServiceDto;
 
@@ -33,7 +33,7 @@ public class ServerMapper {
                 .serverId(service.getServer().getId())
                 .name(service.getName())
                 .flags(service.getFlags())
-                .price(mapPriceToPriceDto(service.getPrice()))
+                .number(mapNumberToNumberDto(service.getNumber()))
                 .build();
     }
 
@@ -43,18 +43,18 @@ public class ServerMapper {
                 .collect(Collectors.toList());
     }
 
-    public PriceDto mapPriceToPriceDto(final Price price) {
-        return PriceDto.builder()
-                .id(price.getId())
-                .number(price.getNumber())
-                .value(price.getValue())
-                .description(price.getDescription())
+    public NumberDto mapNumberToNumberDto(final Number number) {
+        return NumberDto.builder()
+                .id(number.getId())
+                .number(number.getNumber())
+                .value(number.getValue())
+                .description(number.getDescription())
                 .build();
     }
 
-    public List<PriceDto> mapListPriceToListPriceDto(final List<Price> prices) {
-        return prices.stream()
-                .map(this::mapPriceToPriceDto)
+    public List<NumberDto> mapListNumberToListNumberDto(final List<Number> numbers) {
+        return numbers.stream()
+                .map(this::mapNumberToNumberDto)
                 .collect(Collectors.toList());
     }
 }

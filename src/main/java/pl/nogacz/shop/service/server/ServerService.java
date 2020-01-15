@@ -1,13 +1,13 @@
 package pl.nogacz.shop.service.server;
 
 import lombok.AllArgsConstructor;
-import pl.nogacz.shop.domain.server.Price;
+import pl.nogacz.shop.domain.server.Number;
 import pl.nogacz.shop.domain.server.Server;
 import pl.nogacz.shop.domain.server.Service;
 import pl.nogacz.shop.domain.user.User;
 import pl.nogacz.shop.dto.server.AddServerRequestDto;
 import pl.nogacz.shop.dto.server.AddServiceRequsetDto;
-import pl.nogacz.shop.repository.server.PriceRepository;
+import pl.nogacz.shop.repository.server.NumberRepository;
 import pl.nogacz.shop.repository.server.ServerRepository;
 import pl.nogacz.shop.repository.server.ServiceRepository;
 import pl.nogacz.shop.service.user.UserService;
@@ -21,7 +21,7 @@ import java.util.List;
 public class ServerService {
     private ServerRepository serverRepository;
     private ServiceRepository serviceRepository;
-    private PriceRepository priceRepository;
+    private NumberRepository numberRepository;
 
     private UserService userService;
     private ServerValidService serverValidService;
@@ -48,7 +48,7 @@ public class ServerService {
     public Service addService(final String username, final AddServiceRequsetDto addServiceRequsetDto) throws Exception {
         User user = userService.loadUserByUsername(username);
         Server server = serverRepository.getOne(addServiceRequsetDto.getServerId());
-        Price price = priceRepository.getOne(addServiceRequsetDto.getPriceId());
+        Number number = numberRepository.getOne(addServiceRequsetDto.getNumberId());
 
         serverValidService.validServerOwner(user, server);
 
@@ -56,7 +56,7 @@ public class ServerService {
                 .server(server)
                 .name(addServiceRequsetDto.getName())
                 .flags(addServiceRequsetDto.getFlags())
-                .price(price)
+                .number(number)
                 .build();
 
         return serviceRepository.save(service);
@@ -71,8 +71,8 @@ public class ServerService {
         return server.getServices();
     }
 
-    public List<Price> getPrices() {
-        return priceRepository.findAll();
+    public List<Number> getNumbers() {
+        return numberRepository.findAll();
     }
 
 }
